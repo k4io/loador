@@ -16,21 +16,30 @@
     <Filter Include="memory">
       <UniqueIdentifier>{eb1c2de5-bd3b-461d-961d-6103f331800b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ka-io">
+      <UniqueIdentifier>{f6d2c2e6-80ae-440b-ae15-b8f569401597}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Memory\Memory.cpp">
-      <Filter>memory</Filter>
+    <ClCompile Include="ka-io\injector.cpp">
+      <Filter>ka-io</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Memory\Memory.h">
-      <Filter>memory</Filter>
+    <ClInclude Include="xorstr.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="li.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ka-io\injector.h">
+      <Filter>ka-io</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
