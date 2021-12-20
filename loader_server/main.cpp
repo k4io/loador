@@ -322,8 +322,27 @@ void manageAlphaConnection(SOCKET s, const int clientnumber)
             {
                 //packet could be CMD packet, 
                 if (buffer[0] == '\xC2') //C2 = cmd packet - just relay rest of packet to users
+                {
+                    std::string bid = "";
+                    int pos = 0;
+                    for (size_t i = 1; i < 1024; i++)
+                    {
+                        if (buffer[i] == '\x99') { pos = i + 1; break; }
+                        bid += buffer[i];
+                    }
+
+                    char msg[1024];
+                    memset(msg, '\x00', 1024 * sizeof(*msg));
+                    int t = 0;
+                    for (size_t i = 0; i < 1024; i++)
+                        msg[i] = buffer[pos + i];
+                    
+                    memset(buffer, '\x00', 1024 * sizeof(*buffer));
+
                     for (auto c : slaves)
-                        send(c.sock, buffer, BUFFERSIZE, 0);
+                        if(c.steamid == bid)
+                            send(c.sock, msg, BUFFERSIZE, 0);
+                }
 
                 if (buffer[0] == '\xC0') //C0 = get all slave info packet
                 {
@@ -332,6 +351,7 @@ void manageAlphaConnection(SOCKET s, const int clientnumber)
                     std::string am = std::to_string(slaves.size());
                     for (size_t y = 0; y < am.size(); y++)
                         buffer[y] = am[y];
+                    
                     send(alpha_master, buffer, 1024, 0); //send amount of slaves to master
 
                     memset(buffer, '\x00', 1024 * sizeof(*buffer));
